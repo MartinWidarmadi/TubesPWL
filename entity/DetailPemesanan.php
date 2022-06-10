@@ -48,4 +48,25 @@ class DetailPemesanan
    {
       $this->harga = $harga;
    }
+
+
+   public function __set($name, $value)
+   {
+      if (!isset($this->kost)) {
+         $this->kost = new Kost();
+      }
+
+      if (!isset($this->pemesanan)) {
+         $this->pemesanan = new Pemesanan();
+      }
+
+      switch ($name) {
+         case 'kost_id':
+            $this->kost->setId($value);
+            break;
+         case 'pemesanan_id':
+            $this->pemesanan->setId($value);
+            break;
+      }
+   }
 }
