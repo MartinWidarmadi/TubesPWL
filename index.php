@@ -1,3 +1,25 @@
+<?php 
+session_start();
+
+include_once 'controller/UserController.php';
+include_once 'controller/KostController.php';
+include_once 'dao/UserDaoImpl.php';
+include_once 'dao/DetailPemesananDaoImpl.php';
+include_once 'dao/FasilitasDaoImpl.php';
+include_once 'dao/FasilitasKostDaoImpl.php';
+include_once 'dao/KostDaoImpl.php';
+include_once 'dao/PemesananDaoImpl.php';
+include_once 'entity/DetailPemesanan.php';
+include_once 'entity/Fasilitas.php';
+include_once 'entity/FasilitasKost.php';
+include_once 'entity/Kost.php';
+include_once 'entity/Pemesanan.php';
+include_once 'entity/User.php';
+include_once 'util/PDOUtil.php';
+
+$_SESSION['is_logged'] = false;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +40,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <!-- <link href="css/login.scss" rel="stylesheet" /> -->
 </head>
 
 <body id="page-top">
@@ -32,6 +55,15 @@
                     <li class="nav-item"><a class="nav-link" href="?menu=kost">Kost</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <?php 
+                    if ($_SESSION['is_logged']):
+                    ?>
+                    <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
+                    <?php 
+                    else:
+                    ?>
+                    <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -42,10 +74,28 @@
     switch ($menu) {
         case 'home':
             include_once 'view/home-view.php';
+            break;
         case 'kost':
-            include_once 'view/kost-view.php';
+            $kostController = new KostController();
+            $kostController->index();
+            break;
+        case 'kostdetail':
+            $kostController = new KostController();
+            $kostController->detailIndex();
+            break;
+        case 'logout':
+            $userController = new UserController();
+            $userController->logout();
+            break;
+        case 'login':
+            $userController = new UserController();
+            $userController->index();
+            break;
+        default:
+            include_once 'view/home-view.php';
+            break;
     }
-    ?>
+?>
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
