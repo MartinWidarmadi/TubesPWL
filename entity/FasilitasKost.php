@@ -48,6 +48,12 @@ class FasilitasKost
          case 'fasilitas_id':
             $this->fasilitas->setId($value);
             break;
+         case 'knama':
+            $this->kost->setNama($value);
+            break;
+         case 'fnama':
+            $this->fasilitas->setNama($value);
+            break;
       }
    }
 }
