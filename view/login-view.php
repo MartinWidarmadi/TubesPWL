@@ -13,7 +13,7 @@
     </div>
     <div class="mt-3">
         <button class="btn btn-lg btn-primary w-100" type="submit" name="btnSubmit">Login</button>
-        <button class="btn btn-lg btn-primary w-100" type="submit" name="btnSignUp">Login</button>
+        <button class="btn btn-lg btn-primary w-100" type="submit" name="btnSignUp">Sign Up</button>
     </div>
       
     </form>

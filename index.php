@@ -91,6 +91,10 @@ $_SESSION['is_logged'] = false;
             $userController = new UserController();
             $userController->index();
             break;
+        case 'addkost':
+            $kostController = new KostController();
+            $kostController->addIndex();
+            break;
         default:
             include_once 'view/home-view.php';
             break;

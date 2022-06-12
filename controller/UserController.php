@@ -11,7 +11,7 @@ class UserController
 
     public function index()
     {
-        $signSubmit = filter_input(INPUT_POST, 'btnSignUp');
+        
         $loginSubmit = filter_input(INPUT_POST, 'btnSubmit');      
         if (isset($loginSubmit)) {
             $email = filter_input(INPUT_POST, 'txtEmail');
@@ -31,6 +31,15 @@ class UserController
         }
 
         include_once 'view/login-view.php';
+    }
+
+    public function signUp()
+    {
+        $signSubmit = filter_input(INPUT_POST, 'btnSignUp');
+        if (isset($signSubmit)) {
+            $email = filter_input(INPUT_POST, 'txtEmail');
+            $nama = filter_input(INPUT_POST, 'txtNama');
+        }
     }
 
     public function logout()
