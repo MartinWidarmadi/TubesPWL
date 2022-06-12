@@ -60,9 +60,10 @@ class UserController
                 $result = $this->userDao->insertNewUser($user);
 
                 if ($result) {
-                    echo "<div class='bg-success py-2'>New user created!</div>";
+                    echo "<script>alert('Akun baru berhasil dibuat!')";
+                    header("Location: index.php?menu=login");
                 } else {
-                    echo "<div class='bg-danger py-2'>Error on creating user</div>";
+                    echo "<script>alert('Gagal membuat akun')";
                 }
             }
         }

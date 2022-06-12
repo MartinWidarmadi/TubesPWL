@@ -20,7 +20,7 @@ class UserDaoImpl
       $result = 0;
       $link = PDOUtil::createConnection();
 
-      $query = 'INSERT INTO users (name, email, password, gender, role) VALUES(?, ?, ?, ?, ?)';
+      $query = 'INSERT INTO users (nama, email, password, gender, role) VALUES(?, ?, ?, ?, ?)';
       $stmt = $link->prepare($query);
       $stmt->bindValue(1, $user->getNama());
       $stmt->bindValue(2, $user->getEmail());

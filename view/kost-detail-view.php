@@ -1,7 +1,17 @@
+<style>
+  .bg-dark-orange {
+    background-color: #fde047;
+  }
+  
+  .bg-btn-success {
+    background-color: #4ade80; 
+  }
+</style>
+
 <!-- Masthead-->
 <header class="masthead">
   <div class="container h-100 w-100 bg-primary d-flex flex-column justify-content-center align-items-center">
-    <div class="card d-flex flex-column text-center">
+    <div class="card d-flex flex-column text-center" style="max-width: 25.05rem;">
       <?php if ($kost->getGambar()) : ?>
         <img class="card-img-top" src="uploads/<?= $kost->getGambar(); ?>" alt="Card image cap" style="width: 400px;">
       <?php else : ?>
@@ -12,16 +22,18 @@
         <p class="card-text">Rp. <?= $kost->getHarga(); ?></p>
         <p class="card-text"><?= $kost->getAlamat(); ?>, <?= $kost->getKecamatan(); ?></p>
         <hr class="divider">
-        <?php
-        foreach ($fasilitasKost as $fasilitas) :
-        ?>
-        <p><?= $fasilitas->getFasilitas()->getNama(); ?></p>
-        <?php endforeach; ?>
+        <div class="d-flex flex-row flex-wrap justify-content-start">
+          <?php
+          foreach ($fasilitasKost as $fasilitas) :
+          ?>
+          <p class="bg-primary text-light rounded px-1 mx-1"><?= $fasilitas->getFasilitas()->getNama(); ?></p>
+          <?php endforeach; ?>
+        </div>
         <?php 
         if ($_SESSION['role'] == '' || $_SESSION['role'] == 'user'):
         ?>
         <form method="POST">
-          <input type="submit" value="Pembayaran" name="btnSubmitPembayaran" class="btn btn-primary w-100">
+          <input type="submit" value="Pembayaran" name="btnSubmitPembayaran" class="btn btn-success w-100">
         </form>
         <?php endif; ?>
       </div>
@@ -31,8 +43,8 @@
       <?php 
       if ($_SESSION['role'] == 'admin'):
       ?>
-      <a class="btn btn-danger" onclick="editDetail('<?= $kost->getId(); ?>')">Edit</a>
-      <a class="btn btn-danger" onclick="deleteDetail('<?= $kost->getId(); ?>')">Delete</a>
+      <a class="btn bg-dark-orange text-dark" onclick="editDetail('<?= $kost->getId(); ?>')">Edit</a>
+      <a class="btn bg-dark-orange text-dark" onclick="deleteDetail('<?= $kost->getId(); ?>')">Delete</a>
       <?php endif; ?>
     </div>
   </div>

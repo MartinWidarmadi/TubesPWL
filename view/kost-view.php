@@ -3,12 +3,29 @@
    <div class="container px-4 px-lg-5 h-100">
       <div class="row gx-4 gx-lg-1 h-100 align-items-center justify-content-center text-center">
          <div class="col-lg-8 align-self-end">
+            <?php 
+            if ($_SESSION['role'] == 'user' || $_SESSION['role'] == ''):
+            ?>
             <h1 class="text-white font-weight-bold">Cari Kost Anda</h1>
+            <?php 
+            else:
+            ?>
+            <h1 class="text-white font-weight-bold">Daftar Kost Anda</h1>
+            <?php endif; ?>
             <hr class="divider" />
          </div>
          <div class="col-lg-8 align-self-baseline">
+            <?php 
+            if ($_SESSION['role'] == 'user' || $_SESSION['role'] == ''):
+            ?>
             <p class="text-white-75 mb-5">Langsung aja cari dibawah guys.</p>
             <a class="btn btn-primary btn-l" href="#catalog">&darr;</a>
+            <?php 
+            else:
+            ?>
+            <p class="text-white-75 mb-5">Tambah daftar kost anda</p>
+            <a class="btn btn-primary btn-l" href="?menu=addkost">+</a>
+            <?php endif; ?>
          </div>
       </div>
    </div>

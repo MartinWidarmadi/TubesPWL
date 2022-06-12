@@ -12,8 +12,8 @@
         <input type="password" class="form-control" name="txtPassword" placeholder="Password" required=""/>
       </div>
       <div class="mt-3 d-flex flex-row justify-content-around">
-          <button class="btn btn-md btn-primary w-75" type="submit" name="btnSubmit">Login</button>
-          <a class="btn btn-md btn-primary w-75" href="?menu=signup">Sign Up</a>
+          <button class="btn btn-primary" style="width: 8rem;" type="submit" name="btnSubmit">Login</button>
+          <a class="btn btn-primary" style="width: 8rem;" href="?menu=signup">Sign Up</a>
       </div>
     </form>
 </div>

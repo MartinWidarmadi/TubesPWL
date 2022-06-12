@@ -10,18 +10,18 @@
             <input type="text" class="form-control" name="txtNama" placeholder="John Doe" required="" autofocus="" id="namaId" />
         </div>
         <div class="mt-2">
-            <input type="radiobutton" name="gender" id="gender" value="Male" class="btn-check">
-            <label for="gender" class="btn btn-outline-primary">Male</label>
-            <input type="radiobutton" name="gender" id="gender" value="Female" class="btn-check">
-            <label for="maleId" class="btn btn-outline-primary">Female</label>
+            <input type="radio" name="gender" id="gender1" value="Male" class="btn-check" checked>
+            <label for="gender1" class="btn btn-outline-primary">Male</label>
+            <input type="radio" name="gender" id="gender2" value="Female" class="btn-check">
+            <label for="gender2" class="btn btn-outline-primary">Female</label>
         </div>
         <div class="mt-2">
             <label for="passwordId" class="form-label">Password</label>
-            <input id="passwordId" type="password" class="form-control" name="txtPassword" placeholder="Password" required="" />
+            <input id="passwordId" type="password" class="form-control" name="txtPassword" placeholder="Password" required>
         </div>
         <div class="mt-2">
             <label for="confirmId" class="form-label">Confirm Password</label>
-            <input id="confirmId" type="password" class="form-control" name="txtConfirm" placeholder="Confirm Password" required="" />
+            <input id="confirmId" type="password" class="form-control" name="txtConfirm" placeholder="Confirm Password" required>
         </div>
         <div class="mt-3">
             <button class="btn btn-lg btn-primary w-100" type="submit" name="btnSignUp">Create Account</button>

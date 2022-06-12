@@ -54,6 +54,7 @@
                 <input type="file" class="form-control" name="fileGambar" id="gambarId" accept="image/png, image/jpeg">
             </div>
         </div>
+        <a class="btn btn-danger mb-4" href="?menu=kost">&larr;</a>
         <input type="submit" value="Submit Data" name="btnSubmit" class="btn btn-primary me-2 mb-4">
     </form>
 </div>

@@ -4,6 +4,7 @@ session_start();
 include_once 'controller/UserController.php';
 include_once 'controller/KostController.php';
 include_once 'controller/FasilitasController.php';
+include_once 'controller/PemesananController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/DetailPemesananDaoImpl.php';
 include_once 'dao/FasilitasDaoImpl.php';
@@ -33,7 +34,7 @@ if (!isset($_SESSION['is_logged'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>cariKost</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap Icons-->
@@ -63,7 +64,7 @@ if (!isset($_SESSION['is_logged'])) {
                     ?>
                         <li class="nav-item"><a class="nav-link" href="?menu=fasilitas">Fasilitas</a></li>
                     <?php endif; ?>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Pemesanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?menu=pemesanan">Pemesanan</a></li>
                     <?php
                     if ($_SESSION['is_logged']) :
                     ?>
@@ -92,9 +93,16 @@ if (!isset($_SESSION['is_logged'])) {
             $kostController = new KostController();
             $kostController->detailIndex();
             break;
+        case 'addkost':
+            $kostController = new KostController();
+            $kostController->addIndex();
         case 'fasilitas':
             // $fasilitasController = new FasilitasController();
             // $fasilitasController->index();
+            break;
+        case 'pemesanan':
+            $pemesananController = new PemesananController();
+            $pemesananController->index();
             break;
         case 'logout':
             $userController = new UserController();

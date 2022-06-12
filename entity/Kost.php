@@ -83,6 +83,7 @@ class Kost
          case 'AUTO_INCREMENT':
             $this->setId($value);
             break;
+
       }
    }
 }

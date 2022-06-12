@@ -67,6 +67,18 @@ class DetailPemesanan
          case 'pemesanan_id':
             $this->pemesanan->setId($value);
             break;
+         case 'nama':
+            $this->kost->setNama($value);
+            break;
+         case 'alamat':
+            $this->kost->setAlamat($value);
+            break;
+         case 'kecamatan':
+            $this->kost->setKecamatan($value);
+            break;
+         case 'tanggal':
+            $this->pemesanan->setTanggal($value);
+            break;
       }
    }
 }
