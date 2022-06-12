@@ -3,6 +3,7 @@ session_start();
 
 include_once 'controller/UserController.php';
 include_once 'controller/KostController.php';
+include_once 'controller/FasilitasController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/DetailPemesananDaoImpl.php';
 include_once 'dao/FasilitasDaoImpl.php';
@@ -17,7 +18,11 @@ include_once 'entity/Pemesanan.php';
 include_once 'entity/User.php';
 include_once 'util/PDOUtil.php';
 
-$_SESSION['is_logged'] = false;
+
+if (!isset($_SESSION['is_logged'])) {
+    $_SESSION['is_logged'] = false;
+    $_SESSION['role'] = '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,16 +58,20 @@ $_SESSION['is_logged'] = false;
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="?menu=home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="?menu=kost">Kost</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <?php 
+                    if ($_SESSION['role'] == 'admin'):
+                    ?>
+                    <li class="nav-item"><a class="nav-link" href="?menu=fasilitas">Fasilitas</a></li>
+                    <?php endif; ?>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Pemesanan</a></li>
                     <?php
                     if ($_SESSION['is_logged']) :
                     ?>
-                        <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
                     <?php
                     else :
                     ?>
-                        <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -83,6 +92,10 @@ $_SESSION['is_logged'] = false;
             $kostController = new KostController();
             $kostController->detailIndex();
             break;
+        case 'fasilitas':
+            // $fasilitasController = new FasilitasController();
+            // $fasilitasController->index();
+            break;
         case 'logout':
             $userController = new UserController();
             $userController->logout();
@@ -90,6 +103,10 @@ $_SESSION['is_logged'] = false;
         case 'login':
             $userController = new UserController();
             $userController->index();
+            break;
+        case 'signup':
+            $userController = new UserController();
+            $userController->signUp();
             break;
         case 'addkost':
             $kostController = new KostController();

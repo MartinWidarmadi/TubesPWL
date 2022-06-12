@@ -6,7 +6,7 @@ class UserController
 
     public function __construct()
     {
-        $this->userDao = new UserDaoImpl;
+        $this->userDao = new UserDaoImpl();
     }
 
     public function index()
@@ -17,16 +17,17 @@ class UserController
             $email = filter_input(INPUT_POST, 'txtEmail');
             $password = filter_input(INPUT_POST, 'txtPassword');
             $md5Password = md5($password);
-            $userLogin = $this->userDao->userLogin($email, $md5Password);
 
+            $userLogin = $this->userDao->userLogin($email, $md5Password);
+            
             if ($userLogin) {
-                $_SESSION['web_user'] = true;
+                $_SESSION['is_logged'] = true;
                 $_SESSION['id'] = $userLogin->getId();
                 $_SESSION['role'] = $userLogin->getRole();
                 $_SESSION['nama'] = $userLogin->getNama();
                 header('Location: index.php');
             } else {
-                echo '<div class="bg-danger py-2 px-2 fw-bold">Invalid login</div>';
+                echo '<script>alert("Invalid email/password!!");</script>")';
             }
         }
 
@@ -40,12 +41,13 @@ class UserController
             $email = filter_input(INPUT_POST, 'txtEmail');
             $nama = filter_input(INPUT_POST, 'txtNama');
         }
+        include_once 'view/signup-view.php';
     }
 
     public function logout()
     {
         session_unset();
         session_destroy();
-        header('Location: index.php');
+        header('Location: index.php?menu=login');
     }
 }

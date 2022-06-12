@@ -11,18 +11,23 @@ class KostController
       $this->kostDao = new KostDaoImpl();
       $this->fasilitasKostDao = new FasilitasKostDaoImpl();
       $this->fasilitasDao = new FasilitasDaoImpl();
+      $this->pemesananDao = new PemesananDaoImpl();
+      $this->detailPemesananDao = new DetailPemesananDaoImpl();
    }
 
    public function index()
    {
+      
       $kosts = $this->kostDao->fetchAllKost();
-
+      
       include_once 'view/kost-view.php';
    }
-
-
+   
+   
    public function detailIndex()
-   {
+   {  
+
+      // Delete Function
       $delCommand = filter_input(INPUT_GET, 'delcom');
       if (isset($delCommand) && $delCommand == 1) {
          $kostId = filter_input(INPUT_GET, 'did');
@@ -46,11 +51,32 @@ class KostController
          }
       }
 
+
+
       // Fetch One Detail
       $kostId = filter_input(INPUT_GET, 'did');
       if (isset($kostId) && $kostId != '') {
          $fasilitasKost = $this->fasilitasKostDao->fetchFasilitasKost($kostId);
          $kost = $this->kostDao->fetchKost($kostId);
+      }
+
+
+      // Pembayaran
+      $pembayaran = filter_input(INPUT_POST, 'btnSubmitPembayaran');
+      if (isset($pembayaran)) {
+         if (!$_SESSION['is_logged']) {
+            header("Location: index.php?menu=login");
+         } else {
+            echo "<script>alert('Pembayaran berhasil dilakukan');</script>";
+
+            $pemesanan = new Pemesanan();
+            $pemesanan->setTanggal(date("Y-m-d"));
+            $pemesanan->setKeterangan("Pembayaran diterima pada tanggal " . date("Y-m-d") . " oleh " . $_SESSION['nama'] . ".");
+            $pemesanan->getUser()->setId($_SESSION['id']);
+
+
+            header("Location: index.php");
+         }
       }
 
       include_once 'view/kost-detail-view.php';

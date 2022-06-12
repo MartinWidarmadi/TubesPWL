@@ -29,7 +29,7 @@
                <div class="card-body">
                   <h5 class="card-title"><?= $kost->getNama(); ?></h5>
                   <p class="card-text"><?= $kost->getAlamat(); ?></p>
-                  <a class="btn btn-primary" onclick="cekDetail('<?= $kost->getId(); ?>')">Cek Detail</a>
+                  <input type="submit" value="Cek Detail" class="btn btn-primary" onclick="cekDetail('<?= $kost->getId(); ?>')">
                </div>
             </div>
          <?php endforeach; ?>

@@ -6,15 +6,12 @@ class UserDaoImpl
    {
       $link = PDOUtil::createConnection();
       $query = 'SELECT * FROM users WHERE email = ? AND password = ?';
-
       $stmt = $link->prepare($query);
-
       $stmt->bindParam(1, $email);
       $stmt->bindParam(2, $password);
       $stmt->setFetchMode(PDO::FETCH_OBJ);
       $stmt->execute();
       $link = null;
-
       return $stmt->fetchObject('User');
    }
 
@@ -23,7 +20,7 @@ class UserDaoImpl
       $result = 0;
       $link = PDOUtil::createConnection();
 
-      $query = 'INSERT INTO user(name, email, password, gender, role) VALUES(?, ?, ?, ?, ?)';
+      $query = 'INSERT INTO users (name, email, password, gender, role) VALUES(?, ?, ?, ?, ?)';
       $stmt = $link->prepare($query);
       $stmt->bindValue(1, $user->getNama());
       $stmt->bindValue(2, $user->getEmail());

@@ -15,14 +15,25 @@
         <?php
         foreach ($fasilitasKost as $fasilitas) :
         ?>
-          <p><?= $fasilitas->getFasilitas()->getNama(); ?></p>
+        <p><?= $fasilitas->getFasilitas()->getNama(); ?></p>
         <?php endforeach; ?>
+        <?php 
+        if ($_SESSION['role'] == '' || $_SESSION['role'] == 'user'):
+        ?>
+        <form method="POST">
+          <input type="submit" value="Pembayaran" name="btnSubmitPembayaran" class="btn btn-primary w-100">
+        </form>
+        <?php endif; ?>
       </div>
     </div>
     <div class="d-flex flex-row justify-content-between align-items-center mt-3" style="width:15rem;">
       <a class="btn btn-danger" href="?menu=kost#catalog">&larr;</a>
+      <?php 
+      if ($_SESSION['role'] == 'admin'):
+      ?>
       <a class="btn btn-danger" onclick="editDetail('<?= $kost->getId(); ?>')">Edit</a>
       <a class="btn btn-danger" onclick="deleteDetail('<?= $kost->getId(); ?>')">Delete</a>
+      <?php endif; ?>
     </div>
   </div>
 </header>

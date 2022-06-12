@@ -29,4 +29,28 @@ class PemesananDaoImpl
 
       return $stmt->fetchObject('Pemesanan');
    }
+
+
+   public function addPemesanan(Pemesanan $pemesanan) 
+   {
+      $result = 0;
+      $link = PDOUtil::createConnection();
+
+      $query = 'INSERT INTO pemesanan(tanggal, keterangan, user_id) VALUES(?,?,?)';
+      $stmt = $link->prepare($query);
+      $stmt->bindValue(1, $pemesanan->getTanggal());
+      $stmt->bindValue(2, $pemesanan->getKeterangan());
+      $stmt->bindValue(3, $pemesanan->getUser()->getId());
+      $link->beginTransaction();
+
+      if ($stmt->execute()) {
+         $link->commit();
+         $result = 1;
+      } else {
+         $link->rollBack();
+      }
+
+      $link = null;
+      return $result;
+   }
 }
