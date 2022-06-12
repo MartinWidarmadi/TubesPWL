@@ -58,20 +58,20 @@ if (!isset($_SESSION['is_logged'])) {
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="?menu=home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="?menu=kost">Kost</a></li>
-                    <?php 
-                    if ($_SESSION['role'] == 'admin'):
+                    <?php
+                    if ($_SESSION['role'] == 'admin') :
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="?menu=fasilitas">Fasilitas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="?menu=fasilitas">Fasilitas</a></li>
                     <?php endif; ?>
                     <li class="nav-item"><a class="nav-link" href="#contact">Pemesanan</a></li>
                     <?php
                     if ($_SESSION['is_logged']) :
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
                     <?php
                     else :
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class PemesananDaoImpl 
+class PemesananDaoImpl
 {
    public function fetchAllPemesanan()
    {
@@ -31,7 +31,7 @@ class PemesananDaoImpl
    }
 
 
-   public function addPemesanan(Pemesanan $pemesanan) 
+   public function addPemesanan(Pemesanan $pemesanan)
    {
       $result = 0;
       $link = PDOUtil::createConnection();
@@ -52,5 +52,19 @@ class PemesananDaoImpl
 
       $link = null;
       return $result;
+   }
+
+
+   public function fetchLastPemesanan()
+   {
+      $link = PDOUtil::createConnection();
+
+      $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "kos" AND TABLE_NAME = "pemesanan"';
+      $stmt = $link->prepare($query);
+      $stmt->setFetchMode(PDO::FETCH_OBJ);
+      $stmt->execute();
+      $link = null;
+
+      return $stmt->fetchObject('Pemesanan');
    }
 }

@@ -60,6 +60,9 @@ class Pemesanan
          case 'user_id':
             $this->user->setId($value);
             break;
+         case 'AUTO_INCREMENT':
+            $this->setId($value);
+            break;
       }
    }
 }

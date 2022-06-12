@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class DetailPemesananDaoImpl 
+class DetailPemesananDaoImpl
 {
    public function fetchAllDetailPemesanan()
    {
@@ -15,20 +15,27 @@ class DetailPemesananDaoImpl
       return $stmt->fetchAll();
    }
 
-   public function addDetailPemesanan(DetailPemesanan $detailPemesanan, Kost $kost, Pemesanan $pemesanan)
+   public function addDetailPemesanan(DetailPemesanan $detailPemesanan)
    {
       $result = 0;
       $link = PDOUtil::createConnection();
+
       $query = 'INSERT INTO detail_pemesanan(kost_id, pemesanan_id, jumlah_kamar, harga) VALUES(?, ?, ? ,?)';
       $stmt = $link->prepare($query);
-      $stmt->bindValue(1, $kost->getId());
-      $stmt->bindValue(2, $pemesanan->getId());
+      $stmt->bindValue(1, $detailPemesanan->getKost()->getId());
+      $stmt->bindValue(2, $detailPemesanan->getPemesanan()->getId());
       $stmt->bindValue(3, $detailPemesanan->getJumlahKamar());
-      $stmt->bindValue(4, $kost->getHarga());
-      $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailPemesanan');
-      $stmt->execute();
-      $link = null;
+      $stmt->bindValue(4, $detailPemesanan->getHarga());
+      $link->beginTransaction();
 
-      return $stmt->fetchAll();
+      if ($stmt->execute()) {
+         $link->commit();
+         $result = 1;
+      } else {
+         $link->rollBack();
+      }
+
+      $link = null;
+      return $result;
    }
 }

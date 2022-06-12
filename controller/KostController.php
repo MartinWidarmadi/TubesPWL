@@ -17,15 +17,15 @@ class KostController
 
    public function index()
    {
-      
+
       $kosts = $this->kostDao->fetchAllKost();
-      
+
       include_once 'view/kost-view.php';
    }
-   
-   
+
+
    public function detailIndex()
-   {  
+   {
 
       // Delete Function
       $delCommand = filter_input(INPUT_GET, 'delcom');
@@ -67,15 +67,26 @@ class KostController
          if (!$_SESSION['is_logged']) {
             header("Location: index.php?menu=login");
          } else {
-            echo "<script>alert('Pembayaran berhasil dilakukan');</script>";
+            $kost = $this->kostDao->fetchKost($kostId);
 
+            $pemesananId = $this->pemesananDao->fetchLastPemesanan()->getId();
             $pemesanan = new Pemesanan();
             $pemesanan->setTanggal(date("Y-m-d"));
             $pemesanan->setKeterangan("Pembayaran diterima pada tanggal " . date("Y-m-d") . " oleh " . $_SESSION['nama'] . ".");
             $pemesanan->getUser()->setId($_SESSION['id']);
 
+            $this->pemesananDao->addPemesanan($pemesanan);
 
-            header("Location: index.php");
+            $detailPemesanan = new DetailPemesanan();
+            $detailPemesanan->getKost()->setId($kostId);
+            $detailPemesanan->getPemesanan()->setId($pemesananId);
+            $detailPemesanan->setHarga($kost->getHarga());
+            $detailPemesanan->setJumlahKamar('1');
+
+            $this->detailPemesananDao->addDetailPemesanan($detailPemesanan);
+
+            echo "<script>alert('Pembayaran berhasil dilakukan');</script>";
+            // header("Location: index.php");
          }
       }
 
