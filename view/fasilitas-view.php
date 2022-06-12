@@ -1,19 +1,38 @@
+<div class="container">
+   <h1 class="text-dark mb-4">Genre Management</h1>
 
-<header class="masthead">
-    <div class="container px-4 px-lg-5 h-100">
-        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-        <div class="col-lg-8 align-self-end">
-            <h1 class="text-white font-weight-bold">Fasilitas Yang Disediakan</h1>
-            <hr class="divider" />
+   <form action="" method="POST" class="mb-2">
+        <div class="row mb-3">
+            <label for="namaId" class="form-label">Nama</label>
+            <input type="text" class="form-control" name="txtNama" placeholder="Genre Name" id="namaId" autocomplete="off">
         </div>
-        <div class="col-lg-8 align-self-baseline">
-            <p class="text-white-75 mb-5">Fasilitas-fasilitas yang terdapat dalam kos blabalba</p>
-            <a class="btn btn-primary btn-xl" href="#about">Info lebih lanjut</a>
+        <div class="row mb-3">
+            <label for="keteranganId" class="form-label">Keterangan</label>
+            <textarea class="form-control" name="txtKeterangan" placeholder="Genre Name" id="keteranganId" autocomplete="off"></textarea>
         </div>
-        </div>
-    </div>
-</header>
+        <input type="submit" value="Submit Data" name="btnSubmit" class="btn btn-primary me-2">
+    </form>
 
-<div id="portfolio">
+   <table class="table table-info table-striped table-bordered" id="table_id">
+      <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Keterangan</th>
+         </tr>
+      </thead>
+      <tbody>
+         <?php
 
+         foreach ($fasilitas as $item) :
+         ?>
+            <tr>
+               <td scope="row"><?= $item->getId(); ?></td>
+               <td><?= $item->getNama(); ?></td>
+               <td><?= $item->getKeterangan(); ?></td>
+            </tr>
+         <?php endforeach; ?>
+
+      </tbody>
+   </table>
 </div>
