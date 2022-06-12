@@ -11,15 +11,15 @@ class UserController
 
     public function index()
     {
-        
-        $loginSubmit = filter_input(INPUT_POST, 'btnSubmit');      
+
+        $loginSubmit = filter_input(INPUT_POST, 'btnSubmit');
         if (isset($loginSubmit)) {
             $email = filter_input(INPUT_POST, 'txtEmail');
             $password = filter_input(INPUT_POST, 'txtPassword');
             $md5Password = md5($password);
-            $userLogin = $this->userDao->userLogin($email, $password);
+            $userLogin = $this->userDao->userLogin($email, $md5Password);
 
-            if($userLogin) {
+            if ($userLogin) {
                 $_SESSION['web_user'] = true;
                 $_SESSION['id'] = $userLogin->getId();
                 $_SESSION['role'] = $userLogin->getRole();

@@ -6,35 +6,35 @@
 
 <div class="container mt-10">
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="idKost" value="<?= $lastKost->getId() + 1; ?>">
+        <input type="hidden" name="idKost" value="<?= $lastKost->getId(); ?>">
         <div class="row mb-3">
             <div class="col">
                 <label for="kostNameId" class="form-label">Nama Kost</label>
-                <input type="text" name="txtKostName" id="kostNameId" class="form-control">
+                <input type="text" name="txtKostName" id="kostNameId" class="form-control" autocomplete="off">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="alamatId" class="form-label">Alamat Kost</label>
-                <input type="text" name="txtAlamat" id="alamatId" class="form-control">
+                <input type="text" name="txtAlamat" id="alamatId" class="form-control" autocomplete="off">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="kecamatanId" class="form-label">Kecamatan</label>
-                <input type="text" name="txtKecamatan" id="kecamatanId" class="form-control">
+                <input type="text" name="txtKecamatan" id="kecamatanId" class="form-control" autocomplete="off">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="hargaId" class="form-label">Harga</label>
-                <input type="number" name="txtHarga" id="hargaId" class="form-control">
+                <input type="number" name="txtHarga" id="hargaId" class="form-control" autocomplete="off">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="keteranganId" class="form-label">Keterangan</label>
-                <textarea name="txtKeterangan" id="keteranganId" class="form-control"></textarea>
+                <textarea name="txtKeterangan" id="keteranganId" class="form-control" autocomplete="off"></textarea>
             </div>
         </div>
         <div class="row mb-3">
@@ -43,8 +43,8 @@
                 <?php
                 foreach ($fasilitas as $item) :
                 ?>
-                <input type="checkbox" id="<?= $item->getNama() ?>" class="btn-check" autocomplete="off" value="<?= $item->getId(); ?>" name="fasilitas[]">
-                <label for="<?= $item->getNama() ?>" class="btn btn-outline-primary"><?= $item->getNama() ?></label>
+                    <input type="checkbox" id="<?= $item->getNama() ?>" class="btn-check" autocomplete="off" value="<?= $item->getId(); ?>" name="fasilitas[]">
+                    <label for="<?= $item->getNama() ?>" class="btn btn-outline-primary"><?= $item->getNama() ?></label>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -56,4 +56,4 @@
         </div>
         <input type="submit" value="Submit Data" name="btnSubmit" class="btn btn-primary me-2 mb-4">
     </form>
-</div>  
+</div>

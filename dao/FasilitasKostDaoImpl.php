@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class FasilitasKostDaoImpl 
+class FasilitasKostDaoImpl
 {
    public function fetchAllFasilitasKost()
    {
@@ -30,7 +30,8 @@ class FasilitasKostDaoImpl
    }
 
 
-   public function addFasilitasKost(Kost $kost, Fasilitas $fasilitas) {
+   public function addFasilitasKost(Kost $kost, Fasilitas $fasilitas)
+   {
       $result = 0;
       $link = PDOUtil::createConnection();
 
@@ -39,6 +40,27 @@ class FasilitasKostDaoImpl
       $stmt->bindValue(1, $kost->getId());
       $stmt->bindValue(2, $fasilitas->getId());
 
+      $link->beginTransaction();
+
+      if ($stmt->execute()) {
+         $link->commit();
+         $result = 1;
+      } else {
+         $link->rollBack();
+      }
+
+      $link = null;
+      return $result;
+   }
+
+   public function deleteFasilitasKost($id)
+   {
+      $result = 0;
+      $link = PDOUtil::createConnection();
+
+      $query = 'DELETE FROM fasilitas_kost WHERE kost_id = ?';
+      $stmt = $link->prepare($query);
+      $stmt->bindParam(1, $id);
       $link->beginTransaction();
 
       if ($stmt->execute()) {

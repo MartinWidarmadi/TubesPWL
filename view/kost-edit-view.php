@@ -34,7 +34,7 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="keteranganId" class="form-label">Keterangan</label>
-                <textarea name="txtKeterangan" id="keteranganId" class="form-control" value="<?= $kost->getKeterangan(); ?>"></textarea>
+                <textarea name="txtKeterangan" id="keteranganId" class="form-control"><?= $kost->getKeterangan(); ?></textarea>
             </div>
         </div>
         <div class="row mb-3">
@@ -43,8 +43,8 @@
                 <?php
                 foreach ($fasilitas as $item) :
                 ?>
-                <input type="checkbox" id="<?= $item->getNama() ?>" class="btn-check" autocomplete="off" value="<?= $item->getId(); ?>" name="fasilitas[]">
-                <label for="<?= $item->getNama() ?>" class="btn btn-outline-primary"><?= $item->getNama() ?></label>
+                    <input type="checkbox" id="<?= $item->getNama() ?>" class="btn-check" autocomplete="off" value="<?= $item->getId(); ?>" name="fasilitas[]">
+                    <label for="<?= $item->getNama() ?>" class="btn btn-outline-primary"><?= $item->getNama() ?></label>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -56,4 +56,4 @@
         </div>
         <input type="submit" value="Submit Data" name="btnSubmit" class="btn btn-primary me-2 mb-4">
     </form>
-</div>  
+</div>

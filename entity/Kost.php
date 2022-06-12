@@ -74,4 +74,15 @@ class Kost
    {
       $this->gambar = $gambar;
    }
+
+
+
+   public function __set($name, $value)
+   {
+      switch ($name) {
+         case 'AUTO_INCREMENT':
+            $this->setId($value);
+            break;
+      }
+   }
 }

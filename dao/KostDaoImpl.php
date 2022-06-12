@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class KostDaoImpl 
+class KostDaoImpl
 {
    public function fetchAllKost()
    {
@@ -30,12 +30,12 @@ class KostDaoImpl
       return $stmt->fetchObject('Kost');
    }
 
-   public function fetchLastKost() {
+   public function fetchLastKost()
+   {
       $link = PDOUtil::createConnection();
 
-      $query = 'SELECT id FROM kost ORDER BY id DESC limit 1;';
+      $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "kos" AND TABLE_NAME = "kost"';
       $stmt = $link->prepare($query);
-      $stmt->bindParam(1, $id);
       $stmt->setFetchMode(PDO::FETCH_OBJ);
       $stmt->execute();
       $link = null;
@@ -66,7 +66,6 @@ class KostDaoImpl
       }
 
       return $result;
-
    }
 
    public function updateKost(Kost $kost)
@@ -93,10 +92,9 @@ class KostDaoImpl
       }
 
       return $result;
-
    }
 
-   public function deleteKost($id) 
+   public function deleteKost($id)
    {
       $result = 0;
       $link = PDOUtil::createConnection();

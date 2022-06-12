@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 include_once 'controller/UserController.php';
@@ -55,14 +55,14 @@ $_SESSION['is_logged'] = false;
                     <li class="nav-item"><a class="nav-link" href="?menu=kost">Kost</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <?php 
-                    if ($_SESSION['is_logged']):
+                    <?php
+                    if ($_SESSION['is_logged']) :
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
-                    <?php 
-                    else:
+                        <li class="nav-item"><a class="nav-link" href="?menu=logout">Logout</a></li>
+                    <?php
+                    else :
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="?menu=login">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -95,11 +95,15 @@ $_SESSION['is_logged'] = false;
             $kostController = new KostController();
             $kostController->addIndex();
             break;
+        case 'editkost':
+            $kostController = new KostController();
+            $kostController->updateIndex();
+            break;
         default:
             include_once 'view/home-view.php';
             break;
     }
-?>
+    ?>
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

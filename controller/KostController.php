@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class KostController 
+class KostController
 {
    private $kostDao;
    private $fasilitasKostDao;
@@ -13,24 +13,37 @@ class KostController
       $this->fasilitasDao = new FasilitasDaoImpl();
    }
 
-   public function index() {
+   public function index()
+   {
       $kosts = $this->kostDao->fetchAllKost();
 
       include_once 'view/kost-view.php';
    }
 
 
-   public function detailIndex() {
-      $delKost = filter_input(INPUT_GET, 'delcom');
-      if (isset($delKost) && $delKost == 1) {
+   public function detailIndex()
+   {
+      $delCommand = filter_input(INPUT_GET, 'delcom');
+      if (isset($delCommand) && $delCommand == 1) {
          $kostId = filter_input(INPUT_GET, 'did');
+
+
+         $this->fasilitasKostDao->deleteFasilitasKost($kostId);
+
+         $gambar = $this->kostDao->fetchKost($kostId)->getGambar();
+
+         if ($gambar) {
+            unlink("uploads/$gambar");
+         }
+
          $result = $this->kostDao->deleteKost($kostId);
 
-         // if ($result) {
-         //    echo "<script>alert('Kost berhasil dihapus!');</script>";
-         // } else {
-         //    echo "<script>alert('Error saat menghapus kost!');</script>";
-         // }
+         if ($result) {
+            echo "<div class='bg-success py-2'>Data successfully deleted</div>";
+            header("Location: index.php?menu=kost");
+         } else {
+            echo "<div class='bg-danger py-2'>Error on delete data</div>";
+         }
       }
 
       // Fetch One Detail
@@ -39,11 +52,12 @@ class KostController
          $fasilitasKost = $this->fasilitasKostDao->fetchFasilitasKost($kostId);
          $kost = $this->kostDao->fetchKost($kostId);
       }
-      
+
       include_once 'view/kost-detail-view.php';
    }
-   
-   public function addIndex() {
+
+   public function addIndex()
+   {
 
       $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
 
@@ -68,7 +82,7 @@ class KostController
             $kost->setAlamat($trimAlamat);
             $kost->setKecamatan($trimKecamatan);
             $kost->setHarga($harga);
-            $kost->setKeterangan($trimKecamatan);
+            $kost->setKeterangan($keterangan);
 
             if (isset($_FILES['fileGambar']['name']) && $_FILES['fileGambar']['name'] != '') {
                $directory = 'uploads/';
@@ -87,8 +101,8 @@ class KostController
                $result = $this->kostDao->addKost($kost);
             }
 
-            if(isset($_POST['fasilitas'])) {
-               foreach($_POST['fasilitas'] as $item) {
+            if (isset($_POST['fasilitas'])) {
+               foreach ($_POST['fasilitas'] as $item) {
                   $fasilitasObj = new Fasilitas();
                   $fasilitasObj->setId($item);
                   $this->fasilitasKostDao->addFasilitasKost($kost, $fasilitasObj);
@@ -98,6 +112,7 @@ class KostController
 
             if ($result) {
                echo "<div class='bg-success py-2'>Data successfully added</div>";
+               header("Location: index.php?menu=kost");
             } else {
                echo "<div class='bg-danger py-2'>Error on add data</div>";
             }
@@ -110,15 +125,17 @@ class KostController
       include_once 'view/kost-add-view.php';
    }
 
-   public function updateIndex() {
+   public function updateIndex()
+   {
       $kostId = filter_input(INPUT_GET, 'did');
       if (isset($kostId) && $kostId != '') {
          $fasilitasKost = $this->fasilitasKostDao->fetchFasilitasKost($kostId);
          $kost = $this->kostDao->fetchKost($kostId);
       }
 
+      $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
+
       if (isset($submitPressed)) {
-         $id = filter_input(INPUT_POST, 'idKost');
          $nama = filter_input(INPUT_POST, 'txtKostName');
          $trimNama = trim($nama);
          $alamat = filter_input(INPUT_POST, 'txtAlamat');
@@ -133,33 +150,36 @@ class KostController
             echo "<div class='bg-danger py-2'> Please fill all the inputs!</div>";
          } else {
             $kost2 = new Kost();
-            $kost2->setId($id);
+            $kost2->setId($kostId);
             $kost2->setNama($trimNama);
             $kost2->setAlamat($trimAlamat);
             $kost2->setKecamatan($trimKecamatan);
             $kost2->setHarga($harga);
-            $kost2->setKeterangan($trimKecamatan);
+            $kost2->setKeterangan($keterangan);
 
             if (isset($_FILES['fileGambar']['name']) && $_FILES['fileGambar']['name'] != '') {
                $directory = 'uploads/';
                $fileExtension = pathinfo($_FILES['fileGambar']['name'], PATHINFO_EXTENSION);
-               $newFileName = "$id.$fileExtension";
+               $newFileName = "$kostId.$fileExtension";
                $targetFile = "$directory/$newFileName";
                if ($_FILES['fileGambar']['size'] > 1024 * 2048) {
                   echo "<div class='bg-danger py-2'>Upload error. File size exceed 2MB</div>";
                   $kost2->setGambar($kost->getGambar());
-                  $result = $this->kostDao->addKost($kost2);
+                  $result = $this->kostDao->updateKost($kost2);
                } else {
                   move_uploaded_file($_FILES['fileGambar']['tmp_name'], $targetFile);
                   $kost2->setGambar($newFileName);
-                  $result = $this->kostDao->addKost($kost2);
+                  $result = $this->kostDao->updateKost($kost2);
                }
             } else {
-               $result = $this->kostDao->addKost($kost2);
+               $kost2->setGambar($kost->getGambar());
+               $result = $this->kostDao->updateKost($kost2);
             }
 
-            if(isset($_POST['fasilitas'])) {
-               foreach($_POST['fasilitas'] as $item) {
+            $this->fasilitasKostDao->deleteFasilitasKost($kostId);
+
+            if (isset($_POST['fasilitas'])) {
+               foreach ($_POST['fasilitas'] as $item) {
                   $fasilitasObj = new Fasilitas();
                   $fasilitasObj->setId($item);
                   $this->fasilitasKostDao->addFasilitasKost($kost2, $fasilitasObj);
@@ -169,6 +189,7 @@ class KostController
 
             if ($result) {
                echo "<div class='bg-success py-2'>Data successfully updated</div>";
+               header("Location: index.php?menu=kostdetail&did=$kostId");
             } else {
                echo "<div class='bg-danger py-2'>Error on update data</div>";
             }
@@ -178,6 +199,6 @@ class KostController
       $lastKost = $this->kostDao->fetchLastKost();
       $fasilitas = $this->fasilitasDao->fetchAllFasilitas();
 
-      include_once 'view/kost-add-view.php';
+      include_once 'view/kost-edit-view.php';
    }
 }
