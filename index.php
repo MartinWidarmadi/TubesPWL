@@ -96,9 +96,10 @@ if (!isset($_SESSION['is_logged'])) {
         case 'addkost':
             $kostController = new KostController();
             $kostController->addIndex();
+            break;
         case 'fasilitas':
-            // $fasilitasController = new FasilitasController();
-            // $fasilitasController->index();
+            $fasilitasController = new FasilitasController();
+            $fasilitasController->index();
             break;
         case 'pemesanan':
             $pemesananController = new PemesananController();

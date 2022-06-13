@@ -2,9 +2,9 @@
   .bg-dark-orange {
     background-color: #fde047;
   }
-  
+
   .bg-btn-success {
-    background-color: #4ade80; 
+    background-color: #4ade80;
   }
 </style>
 
@@ -26,25 +26,23 @@
           <?php
           foreach ($fasilitasKost as $fasilitas) :
           ?>
-          <p class="bg-primary text-light rounded px-1 mx-1"><?= $fasilitas->getFasilitas()->getNama(); ?></p>
+            <p class="bg-primary text-light rounded px-1 mx-1"><?= $fasilitas->getFasilitas()->getNama(); ?></p>
           <?php endforeach; ?>
         </div>
-        <?php 
-        if ($_SESSION['role'] == '' || $_SESSION['role'] == 'user'):
-        ?>
+
         <form method="POST">
           <input type="submit" value="Pembayaran" name="btnSubmitPembayaran" class="btn btn-success w-100">
         </form>
-        <?php endif; ?>
+
       </div>
     </div>
     <div class="d-flex flex-row justify-content-between align-items-center mt-3" style="width:15rem;">
       <a class="btn btn-danger" href="?menu=kost#catalog">&larr;</a>
-      <?php 
-      if ($_SESSION['role'] == 'admin'):
+      <?php
+      if ($_SESSION['role'] == 'admin') :
       ?>
-      <a class="btn bg-dark-orange text-dark" onclick="editDetail('<?= $kost->getId(); ?>')">Edit</a>
-      <a class="btn bg-dark-orange text-dark" onclick="deleteDetail('<?= $kost->getId(); ?>')">Delete</a>
+        <a class="btn bg-dark-orange text-dark" onclick="editDetail('<?= $kost->getId(); ?>')">Edit</a>
+        <a class="btn bg-dark-orange text-dark" onclick="deleteDetail('<?= $kost->getId(); ?>')">Delete</a>
       <?php endif; ?>
     </div>
   </div>
